@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include	"Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
 #include	"PlayerCharacter.h"
 #include	"Debug.h"
 
@@ -16,7 +17,6 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	ONSCREEN_DEBUG("APlayerCharacter")
 }
 
 // Called every frame
@@ -36,8 +36,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("TurnRight", this, &APlayerCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &APlayerCharacter::AddControllerPitchInput);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &APlayerCharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &APlayerCharacter::StopJumping);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &APlayerCharacter::StartJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &APlayerCharacter::EndJump);
 }
 
 void APlayerCharacter::MoveForward(float vValue) 
@@ -62,3 +62,19 @@ void APlayerCharacter::MoveRight(float vValue)
 	}
 }
 
+void APlayerCharacter::StartJump()
+{
+	if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		Jump();
+	}
+	else
+	{
+		ONSCREEN_DEBUG("Not on ground")
+	}
+}
+
+void APlayerCharacter::EndJump()
+{
+	StopJumping();
+}

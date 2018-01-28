@@ -34,5 +34,10 @@ public:
 	UFUNCTION()
 	void	MoveRight(float vValue);
 
-	
+	UFUNCTION()
+	void	StartJump();
+
+	UFUNCTION()
+	void	EndJump();
+
 };
