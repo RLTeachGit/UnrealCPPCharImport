@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include	"Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
 #include	"PlayerCharacter.h"
+#include	"Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
 #include	"Debug.h"
 
 
@@ -17,6 +17,7 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	GetCharacterMovement()->SetWalkableFloorAngle(90.0f);
 }
 
 // Called every frame
@@ -48,6 +49,7 @@ void APlayerCharacter::MoveForward(float vValue)
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
 		AddMovementInput(Direction, vValue);
+		
 	}
 }
 
