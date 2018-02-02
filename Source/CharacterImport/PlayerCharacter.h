@@ -31,6 +31,7 @@ public:
 
 	UFUNCTION()
 	void	MoveForward(float vValue);
+    
 	UFUNCTION()
 	void	MoveRight(float vValue);
 
