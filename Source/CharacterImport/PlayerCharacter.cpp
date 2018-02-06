@@ -17,7 +17,7 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCharacterMovement()->SetWalkableFloorAngle(90.0f);
+	GetCharacterMovement()->SetWalkableFloorAngle(90.0f);	//Allow for steeper slopes
 }
 
 // Called every frame
