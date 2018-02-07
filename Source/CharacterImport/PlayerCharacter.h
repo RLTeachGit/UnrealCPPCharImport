@@ -21,6 +21,8 @@ protected:
 
 	FVector	mMoveVector;
 	FRotator mRotate;
+    
+    int32   JumpCounter=0;
 
 public:	
 	// Called every frame
@@ -40,5 +42,11 @@ public:
 
 	UFUNCTION()
 	void	EndJump();
+    
+    UFUNCTION(BlueprintImplementableEvent, Category = "Test")
+    void    OnCPPJump(int32 Count);
+    
+    UFUNCTION(BlueprintImplementableEvent, Category = "Test")
+    void    OnCPPMove(const FString& DebugText);
 
 };

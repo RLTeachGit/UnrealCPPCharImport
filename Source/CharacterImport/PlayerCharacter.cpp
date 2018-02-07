@@ -49,7 +49,10 @@ void APlayerCharacter::MoveForward(float vValue)
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
 		AddMovementInput(Direction, vValue);
-		
+        if(fabs(vValue)>0.1f) {
+            FString    tDebugText=FString::Printf(TEXT("Speed %.2f"),vValue);
+            OnCPPMove(tDebugText);
+        }
 	}
 }
 
@@ -69,6 +72,8 @@ void APlayerCharacter::StartJump()
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
 		Jump();
+        OnCPPJump(++JumpCounter);
+
 	}
 	else
 	{
