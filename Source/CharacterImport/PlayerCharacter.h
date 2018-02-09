@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InventoryItem.h"
 #include "PlayerCharacter.generated.h"
+
 
 UCLASS()
 class CHARACTERIMPORT_API APlayerCharacter : public ACharacter
@@ -30,12 +32,15 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	UFUNCTION()
+    
+	UFUNCTION()     //Allows this function to be called from Blueprint
 	void	MoveForward(float vValue);
     
 	UFUNCTION()
 	void	MoveRight(float vValue);
+    
+    UFUNCTION()
+    void    TurnRight(float vValue);
 
 	UFUNCTION()
 	void	StartJump();
@@ -43,10 +48,21 @@ public:
 	UFUNCTION()
 	void	EndJump();
     
-    UFUNCTION(BlueprintImplementableEvent, Category = "Test")
+    UFUNCTION()
+    bool    IsCharacterOnGround();
+
+    
+    UFUNCTION(BlueprintImplementableEvent, Category = "Debug")
     void    OnCPPJump(int32 Count);
     
-    UFUNCTION(BlueprintImplementableEvent, Category = "Test")
+    UFUNCTION(BlueprintImplementableEvent, Category = "Debug")
     void    OnCPPMove(const FString& DebugText);
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Debug")
+    float   XController;
+    
+    //Use Instanced to see the dereferenced pointer in Editor
+    UPROPERTY(VisibleAnywhere,Instanced, BlueprintReadOnly, Category="Inventory")
+    TArray<class UInventoryItem*>    Inventory;
+    
 };
