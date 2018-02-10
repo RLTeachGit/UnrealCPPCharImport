@@ -2,7 +2,7 @@
 
 #include	"PlayerCharacter.h"
 #include	"Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
-
+#include    "Components/CapsuleComponent.h"
 #include	"Debug.h"       //Macro defintion for debug
 
 
@@ -19,8 +19,30 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	GetCharacterMovement()->SetWalkableFloorAngle(90.0f);	//Allow for steeper slopes
+    UCapsuleComponent *tCapsule =GetCapsuleComponent();
+    tCapsule->OnComponentBeginOverlap.AddDynamic(this,&APlayerCharacter::OnBeginOverlap);
+    tCapsule->OnComponentEndOverlap.AddDynamic(this,&APlayerCharacter::OnEndOverlap);
 }
 
+void APlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    // Other Actor is the actor that triggered the event. Check that is not ourself.
+    if ( (OtherActor != nullptr ) && (OtherActor != this) && ( OtherComp != nullptr ) )
+    {
+        FString    tDebugText=FString::Printf(TEXT("Collided with %s"),*OtherActor->GetName());
+        ONSCREEN_DEBUG(*tDebugText)
+        OtherActor->Destroy();
+    }
+}
+void APlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+    // Other Actor is the actor that triggered the event. Check that is not ourself.
+    if ( (OtherActor != nullptr ) && (OtherActor != this) && ( OtherComp != nullptr ) )
+    {
+        ONSCREEN_DEBUG(TEXT("End Collided"))
+    }
+
+}
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
