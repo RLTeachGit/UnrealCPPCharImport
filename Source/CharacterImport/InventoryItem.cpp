@@ -4,9 +4,13 @@
 
 
 
+UInventoryItem::UInventoryItem()
+{
+    ONSCREEN_DEBUG("Default Constructor")
+}
 
-UInventoryItem::UInventoryItem() {
+UInventoryItem::UInventoryItem(EInventoryItemType vType, const FString& vName) {
     ONSCREEN_DEBUG("Constructor")
-    Name=FString(TEXT("Gem"));
-    ItemType=EInventoryItemType::Gem;
+    Name=vName;
+    ItemType=vType;
 }

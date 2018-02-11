@@ -65,6 +65,9 @@ public:
     UPROPERTY(VisibleAnywhere,Instanced, BlueprintReadOnly, Category="Inventory")
     TArray<class UInventoryItem*>    Inventory;
     
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+    int     Score;
+    
     UFUNCTION()
     void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
     

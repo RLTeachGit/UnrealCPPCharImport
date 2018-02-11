@@ -4,7 +4,7 @@
 #include	"Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
 #include    "Components/CapsuleComponent.h"
 #include	"Debug.h"       //Macro defintion for debug
-
+#include    "PickupObject.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -29,9 +29,15 @@ void APlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActo
     // Other Actor is the actor that triggered the event. Check that is not ourself.
     if ( (OtherActor != nullptr ) && (OtherActor != this) && ( OtherComp != nullptr ) )
     {
-        FString    tDebugText=FString::Printf(TEXT("Collided with %s"),*OtherActor->GetName());
-        ONSCREEN_DEBUG(*tDebugText)
-        OtherActor->Destroy();
+        APickupObject* tPickup=Cast<APickupObject>(OtherActor);
+        if(tPickup != nullptr)
+        {
+            tPickup->PickedUpBy(this);  //Get Pickup to handle itself
+        }
+        else
+        {
+            ONSCREEN_DEBUG(TEXT("Not a Pickup"))
+        }
     }
 }
 void APlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

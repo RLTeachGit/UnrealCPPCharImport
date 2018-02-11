@@ -17,7 +17,7 @@ enum class EInventoryItemType : uint8
 {
     None
     ,Gem
-    ,Wand
+    ,JumpBuff
 };
 
 
@@ -28,7 +28,8 @@ class CHARACTERIMPORT_API UInventoryItem : public UObject
 	GENERATED_BODY()
 
 public:
-    UInventoryItem();       //Default Constructor
+    UInventoryItem();
+    UInventoryItem(EInventoryItemType, const FString&);       //Default Constructor
     
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Inventory")
     FString   Name;
