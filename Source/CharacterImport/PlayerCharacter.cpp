@@ -33,6 +33,11 @@ void APlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActo
         if(tPickup != nullptr)
         {
             tPickup->PickedUpBy(this);  //Get Pickup to handle itself
+            UInventoryItem* tItem=NewObject<UInventoryItem>();
+            tItem->Name="Green Gem";
+            tItem->ItemType=EInventoryItemType::Gem;
+            Inventory.Add(NewObject<UInventoryItem>(tItem));
+            OnNewItem(tItem);
         }
         else
         {
@@ -40,6 +45,9 @@ void APlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActo
         }
     }
 }
+
+
+
 void APlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
     // Other Actor is the actor that triggered the event. Check that is not ourself.
@@ -119,8 +127,6 @@ void APlayerCharacter::StartJump()
 	{
 		Jump();
         OnCPPJump(++JumpCounter);
-        Inventory.Add(NewObject<UInventoryItem>());
-
 	}
 	else
 	{

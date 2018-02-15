@@ -57,6 +57,9 @@ public:
     
     UFUNCTION(BlueprintImplementableEvent, Category = "Debug")
     void    OnCPPMove(const FString& DebugText);
+    
+    UFUNCTION(BlueprintImplementableEvent, Category = "Inventory")
+    void    OnNewItem(const UInventoryItem* Item);
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Debug")
     float   XController;
