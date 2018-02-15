@@ -26,11 +26,11 @@ void APickupObject::Tick(float DeltaTime)
 
 }
 
-void    APickupObject::PickedUpBy(APlayerCharacter* vPlayer)
+void    APickupObject::PickedUpBy(AActor* vPlayer)
 {
     FString    tDebugText=FString::Printf(TEXT("%s Picked up by %s"),*this->GetName(),*vPlayer->GetName());
     ONSCREEN_DEBUG(*tDebugText)
-    vPlayer->Score+=100;
+//    vPlayer->Score+=100;
     this->Destroy();
 }
 

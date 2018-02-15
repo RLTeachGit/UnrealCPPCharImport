@@ -3,23 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Debug.h"
 #include "UObject/NoExportTypes.h"
 #include "InventoryItem.generated.h"
 
 /**
- * 
+ * This implements the functionality of the Pickup Item
  */
-
-
-UENUM()
-enum class EInventoryItemType : uint8
-{
-    None
-    ,Gem
-    ,JumpBuff
-};
-
 
 
 UCLASS()
@@ -28,12 +17,11 @@ class CHARACTERIMPORT_API UInventoryItem : public UObject
 	GENERATED_BODY()
 
 public:
-    UInventoryItem();
-    UInventoryItem(EInventoryItemType, const FString&);       //Default Constructor
-    
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Inventory")
-    FString   Name;
-    
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Inventory")
-    EInventoryItemType   ItemType=EInventoryItemType::None;
+    UInventoryItem();		//This cannot have init variables in Unreal
+
+protected:
+	virtual void	Init(const AActor* VActor);		//Default Init routine
+
+	virtual	void	ItemTick(float vTime);
+
 };

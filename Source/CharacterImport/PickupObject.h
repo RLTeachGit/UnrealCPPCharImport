@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PlayerCharacter.h"
 #include "InventoryItem.h"
 #include "PickupObject.generated.h"
 
@@ -27,5 +26,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void    Tick(float DeltaTime) override;
-    virtual void    PickedUpBy(APlayerCharacter* vPlayer);
+    virtual void    PickedUpBy(AActor* vPlayer);
 };

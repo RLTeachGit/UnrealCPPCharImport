@@ -1,16 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "InventoryItem.h"
+#include "Debug.h"
 
 
+UInventoryItem::UInventoryItem() {}	//Does nothing for now
 
-UInventoryItem::UInventoryItem()
+void UInventoryItem::Init(const AActor* vActor)
 {
-    ONSCREEN_DEBUG("Default Constructor")
+	FString	tText = FString::Printf(TEXT("Item Picked up by %s"), vActor->GetDebugName);
+	ONSCREEN_DEBUG(tText);
 }
 
-UInventoryItem::UInventoryItem(EInventoryItemType vType, const FString& vName) {
-    ONSCREEN_DEBUG("Constructor")
-    Name=vName;
-    ItemType=vType;
+
+void UInventoryItem::ItemTick(float vTime)
+{
 }

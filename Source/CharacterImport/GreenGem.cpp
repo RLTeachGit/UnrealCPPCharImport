@@ -3,5 +3,6 @@
 #include "GreenGem.h"
 
 
-
-
+void UGreenGem::Init(const AActor* VActor)
+{
+}

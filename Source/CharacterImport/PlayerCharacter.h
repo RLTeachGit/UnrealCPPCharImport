@@ -2,9 +2,12 @@
 
 #pragma once
 
+#include	"GreenGem.h"
+#include    "PickupObject.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InventoryItem.h"
+#include "Runtime/UMG/Public/Blueprint/UserWidget.h"
 #include "PlayerCharacter.generated.h"
 
 
@@ -21,15 +24,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	FVector	mMoveVector;
-	FRotator mRotate;
-    
-    int32   JumpCounter=0;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//Movement section
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
     
@@ -45,36 +44,28 @@ public:
 	UFUNCTION()
 	void	StartJump();
 
-	UFUNCTION()
-	void	EndJump();
     
     UFUNCTION()
     bool    IsCharacterOnGround();
-
     
-    UFUNCTION(BlueprintImplementableEvent, Category = "Debug")
-    void    OnCPPJump(int32 Count);
-    
-    UFUNCTION(BlueprintImplementableEvent, Category = "Debug")
-    void    OnCPPMove(const FString& DebugText);
-    
-    UFUNCTION(BlueprintImplementableEvent, Category = "Inventory")
+	//Player Inventory section
+	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory")
     void    OnNewItem(const UInventoryItem* Item);
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Debug")
-    float   XController;
     
     //Use Instanced to see the dereferenced pointer in Editor
     UPROPERTY(VisibleAnywhere,Instanced, BlueprintReadOnly, Category="Inventory")
     TArray<class UInventoryItem*>    Inventory;
-    
-    UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
-    int     Score;
-    
+	
+
+	//Collision section
     UFUNCTION()
     void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
     
-    UFUNCTION()
-    void OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-    
+	//UI section
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")	//Allows us to link widget from Level BP, whcih creates the UI
+		TSubclassOf<class UUserWidget> UUIWidget;		//UI Widget, this will contain Inventory
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	int     Score;
+
 };

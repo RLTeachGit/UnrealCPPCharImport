@@ -13,8 +13,7 @@ UCLASS()
 class CHARACTERIMPORT_API UGreenGem : public UInventoryItem
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+
+		virtual void	Init(const AActor* VActor)	 override;		//Override default Init
+
 };
